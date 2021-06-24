@@ -23,7 +23,7 @@ namespace ToDoList
                     webBuilder.ConfigureAppConfiguration(config =>
                     {
                         var settings = config.Build();
-                        var connection = settings.GetConnectionString("ConnectionStrings:TestDB");
+                        var connection = settings["ConnectionStrings:TestDB"];
                         config.AddAzureAppConfiguration(connection);
                     }).UseStartup<Startup>();
                 });
