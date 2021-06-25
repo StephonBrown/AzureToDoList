@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration.AzureAppConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ToDoList.Persistence;
+
 namespace ToDoList
 {
     public class Startup
@@ -36,6 +37,7 @@ namespace ToDoList
             services.AddDbContext<ToDoDbContext>(options =>{
                 options.UseMySql(_dbString, serverVersion);
             });
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +53,11 @@ namespace ToDoList
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }
