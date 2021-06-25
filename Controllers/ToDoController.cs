@@ -22,8 +22,15 @@ namespace ToDoList.Controllers
             _dbContext = dbContext;
         }
 
+        [NonAction]
         // GET: /<controller>/
         public IActionResult Index()
+        {
+            return Ok(_dbContext.ToDoItems);
+        }
+
+        [HttpGet("items")]
+        public IActionResult GetToDoItems()
         {
             return Ok(_dbContext.ToDoItems);
         }
