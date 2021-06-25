@@ -22,9 +22,14 @@ namespace ToDoList
                 {
                     webBuilder.ConfigureAppConfiguration(config =>
                     {
-                        var settings = config.Build();
-                       var connection = settings.GetConnectionString("AppConfig");
-                        config.AddAzureAppConfiguration(connection);
+                        var isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development;
+                        if (!isDevelopment)
+                        {
+                            var settings = config.Build();
+                            var connection = settings.GetConnectionString("AppConfig");
+                            config.AddAzureAppConfiguration(connection);
+                        }
+
                     }).UseStartup<Startup>().ConfigureLogging(logging =>
                     {
                         logging.ClearProviders();

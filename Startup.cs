@@ -30,10 +30,8 @@ namespace ToDoList
         {
             
             _dbString = Configuration["ConnectionStrings:TestDB"];
-
             services.AddControllers();
-            var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
-
+            var serverVersion = new MySqlServerVersion(new Version(5, 7, 9));
             services.AddDbContext<ToDoDbContext>(options =>{
                 options.UseMySql(_dbString, serverVersion);
             });
