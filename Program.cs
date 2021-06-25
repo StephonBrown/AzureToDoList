@@ -25,7 +25,12 @@ namespace ToDoList
                         var settings = config.Build();
                         var connection = settings.GetConnectionString("AppConfig");
                         config.AddAzureAppConfiguration(connection);
-                    }).UseStartup<Startup>();
+                    }).UseStartup<Startup>().ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddConsole();
+                        logging.AddAzureWebAppDiagnostics();
+                    }); ;
                 });
     }
 }
